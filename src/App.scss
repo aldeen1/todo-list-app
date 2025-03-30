@@ -10,16 +10,22 @@
 body {
   background: #cdfdff;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  align-items: start;
+  background-image: url("../public/background-image.png");
+  background-size: 120%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
 .App {
-  text-align: center;
+  margin: 20px;
+  text-align: start;
 }
 
 h1 {
-  color: #fff;
+  color: black;
   margin-bottom: 0.5rem;
   font-size: 1.75rem;
 }
@@ -27,8 +33,8 @@ h1 {
 .BoardWrapper {
   display: flex;
   flex-direction: row;
+  padding-top: 10vh;
   gap: 20px;
-  padding: 20px;
 }
 
 .board-list {
@@ -43,6 +49,12 @@ h1 {
   padding: 10px;
   background-color: #f9f9f9;
   width: 300px;
+}
+
+.upper-board {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .add-board-btn {
@@ -74,8 +86,9 @@ h1 {
 
 .TodoWrapper {
   background: #27AEB9;
-  margin-top: 5rem;
+  margin-top: 3rem;
   padding: 2rem;
+  padding-bottom: 2rem;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -94,8 +107,9 @@ h1 {
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
-  width: 300px;
+  width: 210px;
   color: #fff;
+  border-radius: 5px;
 }
 
 .todo-input::placeholder {
