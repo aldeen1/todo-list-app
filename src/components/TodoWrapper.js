@@ -4,43 +4,56 @@ import { TodoForm } from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
 import { EditTodoForm } from "./EditTodoForms";
 
-export const TodoWrapper = () => {
-  const [todos, setTodos] = useState([]);
+export const TodoWrapper = ({ boardId }) => {
+  const [todos, setTodos] = useState({});
 
   const addTodo = (todo) => {
-    setTodos([
+    setTodos({
       ...todos,
-      { id: uuidv4(), task: todo, completed: false, isEditing: false },
-    ]);
-  }
-
-  const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id));
-
-  const toggleComplete = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  }
-
-  const editTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
-      )
-    );
-  }
-
-  const editTask = (task, id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
-      )
-    );
+      [boardId]: [
+        ...(todos[boardId] || []),
+        { id: uuidv4(), task: todo, completed: false, isEditing: false },
+      ],
+    });
   };
 
-  if (todos.length === 0) {
+  const deleteTodo = (id) => {
+    setTodos({
+      ...todos,
+      [boardId]: todos[boardId].filter((todo) => todo.id !== id),
+    });
+  };
+
+  const toggleComplete = (id) => {
+    setTodos({
+      ...todos,
+      [boardId]: todos[boardId].map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      ),
+    });
+  };
+
+  const editTodo = (id) => {
+    setTodos({
+      ...todos,
+      [boardId]: todos[boardId].map((todo) =>
+        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
+      ),
+    });
+  };
+
+  const editTask = (task, id) => {
+    setTodos({
+      ...todos,
+      [boardId]: todos[boardId].map((todo) =>
+        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
+      ),
+    });
+  };
+
+  const boardTodos = todos[boardId] || [];
+
+  if (boardTodos.length === 0) {
     return (
       <div className="TodoWrapper">
         <TodoForm addTodo={addTodo} />
@@ -51,7 +64,7 @@ export const TodoWrapper = () => {
   return (
     <div className="TodoWrapper">
       <TodoForm addTodo={addTodo} />
-      {todos.map((todo) =>
+      {boardTodos.map((todo) =>
         todo.isEditing ? (
           <EditTodoForm editTodo={editTask} task={todo} />
         ) : (

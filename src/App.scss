@@ -39,16 +39,17 @@ h1 {
 
 .board-list {
   display: flex;
-  flex-direction: row; /* Ensure horizontal alignment */
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start; 
 }
 
 .board {
+  max-width: 300px; 
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   background-color: #f9f9f9;
-  width: 300px;
 }
 
 .upper-board {
